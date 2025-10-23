@@ -1,0 +1,447 @@
+openapi: 3.0.3
+info:
+  title: RedBullJab API
+  description: API para la plataforma de reservas de canchas deportivas
+  version: 1.0.0
+  contact:
+    name: RedBullJab Team
+    email: support@redbulljab.com
+
+servers:
+  - url: http://localhost:4000/api
+    description: Development server
+
+paths:
+  /health:
+    get:
+      summary: Health check
+      description: Verifica el estado del servidor
+      responses:
+        '200':
+          description: Servidor funcionando correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                  timestamp:
+                    type: string
+                    format: date-time
+                  environment:
+                    type: string
+                    example: development
+
+  /auth/register:
+    post:
+      summary: Registrar nuevo usuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+                - password
+              properties:
+                name:
+                  type: string
+                  example: Juan Pérez
+                email:
+                  type: string
+                  format: email
+                  example: juan@example.com
+                password:
+                  type: string
+                  minLength: 6
+                  example: password123
+                role:
+                  type: string
+                  enum: [user, owner, admin]
+                  default: user
+      responses:
+        '201':
+          description: Usuario registrado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      email:
+                        type: string
+                      role:
+                        type: string
+        '400':
+          description: Error de validación
+        '409':
+          description: Usuario ya existe
+
+  /auth/login:
+    post:
+      summary: Iniciar sesión
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: juan@example.com
+                password:
+                  type: string
+                  example: password123
+      responses:
+        '200':
+          description: Login exitoso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  token:
+                    type: string
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      email:
+                        type: string
+                      role:
+                        type: string
+        '401':
+          description: Credenciales inválidas
+
+  /courts:
+    get:
+      summary: Obtener todas las canchas
+      responses:
+        '200':
+          description: Lista de canchas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  courts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        location:
+                          type: string
+                        price_per_hour:
+                          type: number
+                        description:
+                          type: string
+                        amenities:
+                          type: array
+                          items:
+                            type: string
+                        rules:
+                          type: array
+                          items:
+                            type: string
+
+  /courts/{id}:
+    get:
+      summary: Obtener cancha por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Detalles de la cancha
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  court:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      location:
+                        type: string
+                      price_per_hour:
+                        type: number
+                      description:
+                        type: string
+                      amenities:
+                        type: array
+                        items:
+                          type: string
+                      rules:
+                        type: array
+                        items:
+                          type: string
+        '404':
+          description: Cancha no encontrada
+
+  /bookings:
+    get:
+      summary: Obtener todas las reservas
+      responses:
+        '200':
+          description: Lista de reservas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bookings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        court_id:
+                          type: integer
+                        user_id:
+                          type: integer
+                        start_time:
+                          type: string
+                          format: date-time
+                        end_time:
+                          type: string
+                          format: date-time
+                        status:
+                          type: string
+                        total_price:
+                          type: number
+
+    post:
+      summary: Crear nueva reserva
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - court_id
+                - user_id
+                - start_time
+                - end_time
+              properties:
+                court_id:
+                  type: integer
+                user_id:
+                  type: integer
+                start_time:
+                  type: string
+                  format: date-time
+                end_time:
+                  type: string
+                  format: date-time
+                total_price:
+                  type: number
+      responses:
+        '201':
+          description: Reserva creada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  booking:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      court_id:
+                        type: integer
+                      user_id:
+                        type: integer
+                      start_time:
+                        type: string
+                        format: date-time
+                      end_time:
+                        type: string
+                        format: date-time
+                      status:
+                        type: string
+                      total_price:
+                        type: number
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        role:
+          type: string
+          enum: [user, owner, admin]
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    Court:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        location:
+          type: string
+        price_per_hour:
+          type: number
+        description:
+          type: string
+        amenities:
+          type: array
+          items:
+            type: string
+        rules:
+          type: array
+          items:
+            type: string
+        owner_id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    Booking:
+      type: object
+      properties:
+        id:
+          type: integer
+        court_id:
+          type: integer
+        user_id:
+          type: integer
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum: [pending, confirmed, completed, cancelled]
+        total_price:
+          type: number
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    Team:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        captain_user_id:
+          type: integer
+        description:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    Match:
+      type: object
+      properties:
+        id:
+          type: integer
+        booking_id:
+          type: integer
+        team_a_id:
+          type: integer
+        team_b_id:
+          type: integer
+        status:
+          type: string
+          enum: [scheduled, in_progress, completed, cancelled]
+        score:
+          type: object
+          properties:
+            teamA:
+              type: integer
+            teamB:
+              type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    Bet:
+      type: object
+      properties:
+        id:
+          type: integer
+        match_id:
+          type: integer
+        created_by_user_id:
+          type: integer
+        amount:
+          type: number
+        odds:
+          type: number
+        status:
+          type: string
+          enum: [pending, won, lost, cancelled]
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
