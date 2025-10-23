@@ -1,0 +1,29 @@
+{
+  "name": "redbulljab",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "yarn@stable",
+  "workspaces": ["frontend", "backend"],
+  "scripts": {
+    "dev": "yarn workspace rbj-backend dev & yarn workspace rbj-frontend dev",
+    "dev:backend": "yarn workspace rbj-backend dev",
+    "dev:frontend": "yarn workspace rbj-frontend dev",
+    "migrate": "yarn workspace rbj-backend migrate",
+    "migrate:down": "yarn workspace rbj-backend migrate:down",
+    "seed": "yarn workspace rbj-backend seed",
+    "build": "yarn workspace rbj-frontend build",
+    "start": "yarn workspace rbj-backend start",
+    "lint": "eslint .",
+    "format": "prettier -w ."
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2"
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "yarn": ">=4.0.0"
+  }
+}

@@ -1,0 +1,199 @@
+📲 Estructura General de la Aplicación RetaYa
+🔹 Roles principales
+
+Administrador General (Super Admin)
+
+Gestiona toda la plataforma (multi-canchas, usuarios, torneos, estadísticas globales).
+
+Tiene acceso completo al backoffice.
+
+Dueño/Gestor de Cancha
+
+Es el negocio de la cancha.
+
+Registra sus canchas, horarios, precios, promociones.
+
+Administra reservas, torneos, usuarios que alquilan.
+
+Usuario/Jugador
+
+Persona que usa la app para reservar, unirse a equipos, apostar o participar en torneos.
+
+Puede ser jugador individual o capitán de un equipo.
+
+🔹 Funcionalidades por rol
+🛠️ Administrador General
+
+Gestión de usuarios (crear, editar, suspender).
+
+Gestión de canchas registradas: validar solicitudes de dueños de canchas.
+
+Reportes globales:
+
+Reservas por día/mes/año.
+
+Canchas más usadas.
+
+Actividad de torneos.
+
+Gestión de torneos oficiales (alianzas con marcas, torneos patrocinados).
+
+Panel de control de pagos (comisiones de reservas, publicidad, suscripciones de canchas).
+
+🏟️ Dueño/Gestor de Cancha
+
+Registro de cancha(s):
+
+Nombre, dirección, fotos, deportes soportados (fútbol, baloncesto, tenis, etc.).
+
+Precio por hora, modalidades (5v5, 7v7, etc.).
+
+Servicios adicionales (parqueadero, duchas, cafetería).
+
+Gestión de disponibilidad/calendario
+
+Configurar horarios.
+
+Bloquear fechas especiales.
+
+Ajustar precios por hora/día (ej. promo en días de semana).
+
+Gestión de reservas
+
+Confirmar/rechazar reservas.
+
+Ver historial de reservas.
+
+Generar recibos de pago.
+
+Gestión de torneos
+
+Crear torneos por categorías.
+
+Gestionar equipos inscritos.
+
+Administrar fixture, resultados y clasificaciones.
+
+Definir premios, rifas y patrocinios.
+
+Comunicación con usuarios
+
+Notificaciones push de confirmación o cambios.
+
+Chat interno para dudas rápidas.
+
+👤 Usuario/Jugador
+
+Registro/Login (email, Google, Facebook, Apple ID).
+
+Perfil personal
+
+Nombre, alias, foto, estadísticas (partidos jugados, ganados, goles).
+
+Posición preferida (fútbol) o rol en el deporte elegido.
+
+Explorar canchas
+
+Búsqueda por ubicación, deporte, precio, disponibilidad.
+
+Visualización en mapa.
+
+Reservar cancha
+
+Selección de cancha.
+
+Consulta de calendario disponible.
+
+Pago en línea (tarjeta, PSE, billeteras digitales como Nequi/Daviplata).
+
+Confirmación y notificación.
+
+Equipos y amigos
+
+Crear o unirse a un equipo.
+
+Invitar amigos a partidos.
+
+Estadísticas del equipo (victorias, torneos).
+
+Retas y desafíos
+
+Retar a otro equipo en una cancha específica.
+
+Notificaciones de retos aceptados o rechazados.
+
+Torneos y eventos
+
+Inscripción a torneos locales.
+
+Seguimiento de fixture y tabla de posiciones.
+
+Recepción de premios y reconocimientos.
+
+Gamificación (PLUS futuro)
+
+Ranking de jugadores/equipos.
+
+Recompensas por uso frecuente.
+
+Logros desbloqueables.
+
+🔹 Funcionalidades comunes (todos los roles)
+
+Notificaciones push (confirmaciones, retos, cambios en reservas).
+
+Chat/mensajes internos (jugadores ↔ gestores ↔ admins).
+
+Geolocalización (buscar canchas cercanas).
+
+Pagos en línea seguros.
+
+Soporte/ayuda (FAQs, chat con soporte).
+
+🔹 Módulos iniciales obligatorios (MVP)
+
+Autenticación (usuarios, gestores, admins).
+
+Gestión de usuarios (perfiles básicos).
+
+Gestión de canchas y calendario (registro, disponibilidad, fotos, precios).
+
+Reservas online con pagos básicos.
+
+Notificaciones (push + correo).
+
+Exploración de canchas en mapa/lista.
+
+Panel Admin básico (usuarios, canchas, reservas).
+
+🔹 Escalamiento futuro (PLUS)
+
+Retas entre equipos (interacción social).
+
+Gamificación y ranking.
+
+Torneos avanzados (fixture automático, estadísticas).
+
+Integración con wearables/deportes (apps de salud, conteo de pasos/goles).
+
+Publicidad segmentada (para dueños de canchas y marcas deportivas).
+
+Suscripción premium para usuarios (reservas prioritarias, descuentos, recompensas).
+
+🔹 Vistas principales (UX inicial)
+
+Login / Registro.
+
+Explorar canchas (mapa y lista).
+
+Detalle de cancha (info, calendario, reservar).
+
+Mi perfil (jugador).
+
+Mis reservas (historial, próximas).
+
+Gestión de canchas (para dueños).
+
+Gestión de reservas (dueños/admin).
+
+Dashboard administrador.
